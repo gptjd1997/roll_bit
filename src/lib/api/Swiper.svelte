@@ -6,7 +6,10 @@
 	import Diamonds from '$lib/Images/Diamonds.avif';
 	import Dice from '$lib/Images/Dice.avif';
 	import { onMount } from 'svelte';
+	import { slide } from 'svelte/transition';
+	export let games;
 
+	let swiper;
 	let swiperEl;
 	let prevEl;
 	let nextEl;
@@ -37,20 +40,26 @@
 		}
 	};
 
+	let slidesPerView;
+	let isEnd;
+
 	onMount(() => {
 		// now we need to assign all parameters to Swiper element
 		Object.assign(swiperEl, swiperParams);
 
 		// and now initialize it
 		swiperEl.initialize();
-		console.log(prevEl);
+		swiper = swiperEl.swiper;
+		slidesPerView = swiper.params.slidesPerView;
 
-		swiperEl.on('slideChange', () => {
-			console.log('this');
+		swiper.on('slideChange', () => {
+			isEnd = swiper.isEnd;
+			console.log(isEnd);
 		});
 	});
 </script>
 
+<svelte:window on:resize={() => (slidesPerView = swiper.params.slidesPerView)} />
 <div class="w-auto">
 	<div>
 		<div class="mb-2 flex justify-between">
@@ -58,12 +67,11 @@
 			<div class="mx-2">
 				<button
 					on:click={() => {
-						const currentSwiper = swiperEl.swiper;
-						const isBeginning = currentSwiper.isBeginning;
+						const isBeginning = swiper.isBeginning;
 						if (!isBeginning) {
-							currentSwiper.slideTo(currentSwiper.realIndex - currentSwiper.params.slidesPerView);
+							swiper.slideTo(swiper.realIndex - swiper.params.slidesPerView);
 						} else {
-							currentSwiper.slideTo(currentSwiper.slides.length);
+							swiper.slideTo(swiper.slides.length);
 						}
 					}}
 					bind:this={prevEl}
@@ -83,12 +91,10 @@
 				</button>
 				<button
 					on:click={() => {
-						const currentSwiper = swiperEl.swiper;
-						const isEnd = currentSwiper.isEnd;
 						if (!isEnd) {
-							currentSwiper.slideTo(currentSwiper.realIndex + currentSwiper.params.slidesPerView);
+							swiper.slideTo(swiper.realIndex + swiper.params.slidesPerView);
 						} else {
-							currentSwiper.slideTo(0);
+							swiper.slideTo(0);
 						}
 					}}
 					bind:this={nextEl}
@@ -112,177 +118,32 @@
 				bind:this={swiperEl}
 				speed="500"
 				loop="true"
-				class="w-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-md xl:max-w-screen-xl"
+				class={`flex items-end sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-md xl:max-w-screen-xl ${isEnd ? 'gap-3' : ''} `}
 			>
-				<swiper-slide class="flex flex-col"
-					><img loading="lazy" class=" rounded-lg" src={Diamonds} alt="" />
-					<div class="relative h-5 overflow-hidden">
-						<div
-							class="pulse drop-shadow-greenShadow absolute -top-1.5 animate-pulse text-[25px] font-extrabold leading-9 text-green-500"
-						>
-							ㆍ
+				{#each games as game, idx}
+					<swiper-slide
+						class={`${(idx + 1) % slidesPerView == 0 && !isEnd ? 'opacity-30' : ''} ${isEnd ? '' : 'mx-3'} flex flex-col`}
+					>
+						<div class="relative">
+							<img
+								loading="lazy"
+								class=" rounded-lg 2xl:max-w-screen-2xl"
+								src={game.image}
+								alt=""
+							/>
 						</div>
-						<div class="absolute left-5 top-1 text-xs font-light tracking-wider">
-							7,625 플레이중
+						<div class="relative h-6 overflow-hidden">
+							<div
+								class="pulse absolute -top-1.5 animate-pulse overflow-hidden text-[25px] font-extrabold leading-9 text-green-500 drop-shadow-greenShadow 3xl:-left-1 3xl:-top-1 3xl:text-4xl"
+							>
+								ㆍ
+							</div>
+							<div class="absolute left-5 top-1 text-xs font-light tracking-wider 3xl:text-base">
+								7,625 플레이중
+							</div>
 						</div>
-					</div></swiper-slide
-				>
-				<swiper-slide class="flex flex-col"
-					><img loading="lazy" class=" rounded-lg" src={Dice} alt="" />
-					<div class="relative h-5 overflow-hidden">
-						<div
-							class="pulse drop-shadow-greenShadow absolute -top-1.5 animate-pulse text-[25px] font-extrabold leading-9 text-green-500"
-						>
-							ㆍ
-						</div>
-						<div class="absolute left-5 top-1 text-xs font-light tracking-wider">
-							7,625 플레이중
-						</div>
-					</div></swiper-slide
-				>
-				<swiper-slide class="flex flex-col"
-					><img loading="lazy" class=" rounded-lg" src={Diamonds} alt="" />
-					<div class="relative h-5 overflow-hidden">
-						<div
-							class="pulse drop-shadow-greenShadow absolute -top-1.5 animate-pulse text-[25px] font-extrabold leading-9 text-green-500"
-						>
-							ㆍ
-						</div>
-						<div class="absolute left-5 top-1 text-xs font-light tracking-wider">
-							7,625 플레이중
-						</div>
-					</div></swiper-slide
-				>
-				<swiper-slide class="flex flex-col"
-					><img loading="lazy" class=" rounded-lg" src={Dice} alt="" />
-					<div class="relative h-5 overflow-hidden">
-						<div
-							class="pulse drop-shadow-greenShadow absolute -top-1.5 animate-pulse text-[25px] font-extrabold leading-9 text-green-500"
-						>
-							ㆍ
-						</div>
-						<div class="absolute left-5 top-1 text-xs font-light tracking-wider">
-							7,625 플레이중
-						</div>
-					</div></swiper-slide
-				>
-				<swiper-slide class="flex flex-col"
-					><img loading="lazy" class=" rounded-lg" src={Diamonds} alt="" />
-					<div class="relative h-5 overflow-hidden">
-						<div
-							class="pulse drop-shadow-greenShadow absolute -top-1.5 animate-pulse text-[25px] font-extrabold leading-9 text-green-500"
-						>
-							ㆍ
-						</div>
-						<div class="absolute left-5 top-1 text-xs font-light tracking-wider">
-							7,625 플레이중
-						</div>
-					</div></swiper-slide
-				>
-				<swiper-slide class="flex flex-col"
-					><img loading="lazy" class=" rounded-lg" src={Dice} alt="" />
-					<div class="relative h-5 overflow-hidden">
-						<div
-							class="pulse drop-shadow-greenShadow absolute -top-1.5 animate-pulse text-[25px] font-extrabold leading-9 text-green-500"
-						>
-							ㆍ
-						</div>
-						<div class="absolute left-5 top-1 text-xs font-light tracking-wider">
-							7,625 플레이중
-						</div>
-					</div></swiper-slide
-				>
-				<swiper-slide class="flex flex-col"
-					><img loading="lazy" class=" rounded-lg" src={Diamonds} alt="" />
-					<div class="relative h-5 overflow-hidden">
-						<div
-							class="pulse drop-shadow-greenShadow absolute -top-1.5 animate-pulse text-[25px] font-extrabold leading-9 text-green-500"
-						>
-							ㆍ
-						</div>
-						<div class="absolute left-5 top-1 text-xs font-light tracking-wider">
-							7,625 플레이중
-						</div>
-					</div></swiper-slide
-				>
-				<swiper-slide class="flex flex-col"
-					><img loading="lazy" class=" rounded-lg" src={Dice} alt="" />
-					<div class="relative h-5 overflow-hidden">
-						<div
-							class="pulse.5 drop-shadow-greenShadow absolute -top-1 animate-pulse text-[25px] font-extrabold leading-9 text-green-500"
-						>
-							ㆍ
-						</div>
-						<div class="absolute left-5 top-1 text-xs font-light tracking-wider">
-							7,625 플레이중
-						</div>
-					</div></swiper-slide
-				>
-				<swiper-slide class="flex flex-col"
-					><img loading="lazy" class=" rounded-lg" src={Diamonds} alt="" />
-					<div class="relative h-5 overflow-hidden">
-						<div
-							class="pulse.5 drop-shadow-greenShadow absolute -top-1 animate-pulse text-[25px] font-extrabold leading-9 text-green-500"
-						>
-							ㆍ
-						</div>
-						<div class="absolute left-5 top-1 text-xs font-light tracking-wider">
-							7,625 플레이중
-						</div>
-					</div></swiper-slide
-				>
-				<swiper-slide class="flex flex-col"
-					><img loading="lazy" class=" rounded-lg" src={Dice} alt="" />
-					<div class="relative h-5 overflow-hidden">
-						<div
-							class="pulse.5 drop-shadow-greenShadow absolute -top-1 animate-pulse text-[25px] font-extrabold leading-9 text-green-500"
-						>
-							ㆍ
-						</div>
-						<div class="absolute left-5 top-1 text-xs font-light tracking-wider">
-							7,625 플레이중
-						</div>
-					</div></swiper-slide
-				>
-				<swiper-slide class="flex flex-col"
-					><img loading="lazy" class=" rounded-lg" src={Diamonds} alt="" />
-					<div class="relative h-5 overflow-hidden">
-						<div
-							class="pulse.5 drop-shadow-greenShadow absolute -top-1 animate-pulse text-[25px] font-extrabold leading-9 text-green-500"
-						>
-							ㆍ
-						</div>
-						<div class="absolute left-5 top-1 text-xs font-light tracking-wider">
-							7,625 플레이중
-						</div>
-					</div></swiper-slide
-				>
-				<swiper-slide class="flex flex-col"
-					><img loading="lazy" class=" rounded-lg" src={Dice} alt="" />
-					<div class="relative h-5 overflow-hidden">
-						<div
-							class="pulse.5 drop-shadow-greenShadow absolute -top-1 animate-pulse text-[25px] font-extrabold leading-9 text-green-500"
-						>
-							ㆍ
-						</div>
-						<div class="absolute left-5 top-1 text-xs font-light tracking-wider">
-							7,625 플레이중
-						</div>
-					</div></swiper-slide
-				>
-				<swiper-slide class="flex flex-col"
-					><img loading="lazy" class=" rounded-lg" src={Diamonds} alt="" />
-					<div class="relative h-5 overflow-hidden">
-						<div
-							class="pulse.5 drop-shadow-greenShadow absolute -top-1 animate-pulse text-[25px] font-extrabold leading-9 text-green-500"
-						>
-							ㆍ
-						</div>
-						<div class="absolute left-5 top-1 text-xs font-light tracking-wider">
-							7,625 플레이중
-						</div>
-					</div></swiper-slide
-				>
+					</swiper-slide>
+				{/each}
 			</swiper-container>
 		</div>
 	</div>

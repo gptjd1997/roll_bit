@@ -1,8 +1,11 @@
 <script>
 	import Autocomplete from '$lib/api/Autocomplete.svelte';
 	import Swiper from '$lib/api/Swiper.svelte';
+	export let data = [];
+	export let { games } = data;
+	export let error = null;
 </script>
 
-<Autocomplete></Autocomplete>
+<Autocomplete {games}></Autocomplete>
 
-<Swiper></Swiper>
+<Swiper {games}></Swiper>

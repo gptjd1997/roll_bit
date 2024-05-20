@@ -82,7 +82,8 @@ export default {
 				'theme-surface-900': '#242424'
 			},
 			boxShadow: {
-				default: '0px 0px 25px 0px rgba(0,0,0,0.39)'
+				default: '0px 0px 25px 0px rgba(0,0,0,0.39)',
+				swiper: 'inset -200px 0px 100px -100px rgba(0,0,0,0.9);'
 			},
 			screens: {
 				sm: '576px',
@@ -97,11 +98,12 @@ export default {
 				xl: '1200px',
 				// => @media (min-width: 1280px) { ... }
 
-				'2xl': '1400px'
+				'2xl': '1400px',
 				// => @media (min-width: 1536px) { ... }
+				'3xl': '1700px'
 			},
 			dropShadow: {
-				greenShadow: '0 0px 2px rgb(34 197 94)'
+				greenShadow: '0px 0px 3px rgb(34 197 94)'
 			}
 		}
 	},
