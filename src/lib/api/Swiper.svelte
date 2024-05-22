@@ -6,6 +6,8 @@
 	import { onMount } from 'svelte';
 	export let games;
 
+	let swiperWrap;
+
 	let swiper;
 	let swiperEl;
 	let prevEl;
@@ -57,14 +59,18 @@
 			Changed = true;
 			activeIndex = swiper.activeIndex;
 			isEnd = swiper.isEnd;
-			console.log(swiper);
 		});
 		swiper.on('');
 	});
 </script>
 
-<svelte:window on:resize={() => (slidesPerView = swiper.params.slidesPerView)} />
-<div class="mx-3 w-auto md:mx-auto">
+<svelte:window
+	on:resize={() => {
+		slidesPerView = swiper.params.slidesPerView;
+		console.log(swiperWrap.clientWidth);
+	}}
+/>
+<div bind:this={swiperWrap} class="mx-3 w-auto md:mx-auto">
 	<div>
 		<div class="mb-2 flex justify-between">
 			<div class="flex items-end gap-2">
@@ -126,19 +132,18 @@
 		</div>
 		<div class="relative z-50">
 			<swiper-container
-				on:mouseover={() => console.log('SADasd')}
 				bind:this={swiperEl}
 				speed="500"
 				loop="true"
-				class="  w-full shadow-swiper md:max-w-[700px] lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl 3xl:max-w-screen-2xl"
+				class=" w-full shadow-swiper md:max-w-[700px] lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl 3xl:max-w-screen-2xl"
 			>
 				{#each games as game, idx}
 					<swiper-slide
-						class={`${activeIndex + slidesPerView - 1 <= idx && !isEnd ? 'md:animate-swiperOpacity delay-75' : ''} relative flex w-1/2  flex-col overflow-clip `}
+						class={`${activeIndex + slidesPerView - 1 <= idx && !isEnd ? 'delay-75 md:animate-swiperOpacity' : ''} relative flex w-1/2  flex-col  `}
 					>
 						<div
 							class="z-50 cursor-pointer pt-3
-						transition-transform duration-300 will-change-transform hover:-translate-y-3"
+						transition-transform duration-300 hover:-translate-y-3"
 						>
 							<img loading="lazy" class="w-full rounded-xl" src={game.image} alt="" />
 						</div>
