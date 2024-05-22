@@ -3,17 +3,36 @@ export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
 		extend: {
+			animation: {
+				swiperOpacity: 'swiperOpacity 1s both',
+				swiperBoxShadow: 'swiperBoxShadow 0.5s both ',
+				swiperBoxShadowReverse: 'swiperBoxShadowReverse 0.5s both'
+			},
+			keyframes: {
+				swiperOpacity: {
+					'0%': { opacity: 1 },
+					'100%': { opacity: 0.7 }
+				},
+				swiperBoxShadow: {
+					'0%': { boxShadow: 'none;', opacity: 0 },
+					'100%': { boxShadow: 'inset -200px 0px 50px -130px #242424', opacity: 1 }
+				},
+				swiperBoxShadowReverse: {
+					'100%': { boxShadow: 'none;', opacity: 0 },
+					'0%': { boxShadow: 'inset -200px 0px 50px -130px #242424', opacity: 1 }
+				}
+			},
 			colors: {
-				'theme-primary-50': '#e3deef',
-				'theme-primary-100': '#d9d3e9',
-				'theme-primary-200': '#d0c8e4',
-				'theme-primary-300': '#b3a7d3',
-				'theme-primary-400': '#7b64b2',
-				'theme-primary-500': '#422291',
-				'theme-primary-600': '#3b1f83',
-				'theme-primary-700': '#321a6d',
-				'theme-primary-800': '#281457',
-				'theme-primary-900': '#201147',
+				'theme-primary-50': '#e1f4f0',
+				'theme-primary-100': '#c3eae2',
+				'theme-primary-200': '#a5dfd4',
+				'theme-primary-300': '#64c9b7',
+				'theme-primary-400': '#26a17b',
+				'theme-primary-500': '#22916f',
+				'theme-primary-600': '#1f8263',
+				'theme-primary-700': '#1b6e55',
+				'theme-primary-800': '#165a47',
+				'theme-primary-900': '#13493b',
 				// secondary | #1547c3
 				'theme-secondary-50': '#dce3f6',
 				'theme-secondary-100': '#d0daf3',
@@ -83,9 +102,11 @@ export default {
 			},
 			boxShadow: {
 				default: '0px 0px 25px 0px rgba(0,0,0,0.39)',
-				swiper: 'inset -200px 0px 100px -100px rgba(0,0,0,0.9);'
+				swiper: 'inset -100px 0px 100px -130px #242424;'
 			},
 			screens: {
+				mobile: '360px',
+				xs: `480px`,
 				sm: '576px',
 				// => @media (min-width: 640px) { ... }
 
@@ -100,7 +121,7 @@ export default {
 
 				'2xl': '1400px',
 				// => @media (min-width: 1536px) { ... }
-				'3xl': '1700px'
+				'3xl': '1600px'
 			},
 			dropShadow: {
 				greenShadow: '0px 0px 3px rgb(34 197 94)'

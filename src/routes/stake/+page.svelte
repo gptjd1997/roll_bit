@@ -6,6 +6,13 @@
 	export let error = null;
 </script>
 
-<Autocomplete {games}></Autocomplete>
+<div class="flex flex-col gap-9">
+	<Autocomplete {games}></Autocomplete>
 
-<Swiper {games}></Swiper>
+	<Swiper {games}></Swiper>
+	<Swiper {games}></Swiper>
+	<Swiper {games}></Swiper>
+	<Swiper {games}></Swiper>
+	<Swiper {games}></Swiper>
+	<Swiper {games}></Swiper>
+</div>

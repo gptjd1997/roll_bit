@@ -9,7 +9,7 @@
 	color: rgba(255, 255, 255, 0.7);
 	font-family: 'pretendard variable';
 	font-size: 14px;
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 html,

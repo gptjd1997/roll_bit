@@ -1,25 +1,46 @@
 <script>
+	import whiteLogo from '$lib/Images/whiteLogo.png';
 </script>
 
-<div
-	class="flex h-14 w-full flex-row justify-center self-center bg-theme-surface-800 px-20 shadow-default"
->
-	<div class="flex w-full flex-row items-center justify-between">
-		<div class="flex flex-row gap-3">
-			<div class="flex h-11 w-24 items-center justify-center text-base font-semibold">카지노</div>
-			<div class="flex h-11 w-24 items-center justify-center text-base font-semibold">스포츠</div>
-			<div class="flex h-11 w-24 items-center justify-center text-base font-semibold">레이싱</div>
-			<div class="flex h-11 w-24 items-center justify-center text-base font-semibold">복권</div>
+<div class="absolute z-[61] flex h-[64px] w-full bg-theme-surface-800 px-20 shadow-default">
+	<div class="grid w-full grid-cols-3">
+		<div class="flex flex-row items-center justify-start gap-3">
+			<img width="100" src={whiteLogo} />
 		</div>
-		<div class="flex flex-row gap-4">
-			<div class="text-base font-semibold">
+		<div class="flex items-center justify-center p-1">
+			<div class="flex h-14 flex-row justify-center rounded-lg">
+				<div
+					class="flex h-full w-48 items-center justify-center gap-2 rounded-l-lg border-2 border-theme-primary-400 border-opacity-80 bg-theme-surface-900"
+				>
+					<p class="text-lg font-medium tracking-wider">0.01000399</p>
+
+					<svg fill="none" width="16" viewBox="0 0 96 96" class="svg-icon" style="">
+						<title></title>
+						<path
+							d="M96 48c0 26.51-21.49 48-48 48S0 74.51 0 48 21.49 0 48 0s48 21.49 48 48Z"
+							fill="#26A17B"
+						></path><path
+							d="M53.766 52.149v-.006c-.33.024-2.031.126-5.826.126-3.03 0-5.163-.09-5.913-.126v.009c-11.664-.513-20.37-2.544-20.37-4.974 0-2.427 8.706-4.458 20.37-4.98v7.932c.762.054 2.946.183 5.964.183 3.62 0 5.436-.15 5.775-.18v-7.929c11.64.519 20.325 2.55 20.325 4.974 0 2.43-8.685 4.455-20.325 4.971Zm0-10.77v-7.098h16.242V23.457H25.785v10.824h16.242v7.095c-13.2.606-23.127 3.222-23.127 6.354s9.927 5.745 23.127 6.354V76.83h11.739V54.078c13.179-.606 23.082-3.219 23.082-6.348s-9.903-5.742-23.082-6.351Z"
+							fill="#fff"
+						></path></svg
+					>
+				</div>
+				<div
+					class="flex h-full w-20 items-center justify-center bg-theme-primary-400 bg-opacity-80"
+				>
+					<p class="text-xl font-bold">지갑</p>
+				</div>
+			</div>
+		</div>
+		<div class="flex flex-row items-center justify-end gap-7">
+			<div>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
 					viewBox="0 0 16 16"
 					id="User--Streamline-Blocks---Free"
-					height="17"
-					width="17"
+					height="22"
+					width="22"
 					><desc>User Streamline Icon: https://streamlinehq.com</desc><path
 						fill="#fff"
 						class="bg-theme-primary-200"
@@ -30,14 +51,14 @@
 					></path></svg
 				>
 			</div>
-			<div class="text-base font-semibold">
+			<div>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
 					viewBox="0 0 24 24"
 					id="Chat-Two-Bubbles-Oval--Streamline-Sharp"
-					height="17"
-					width="17"
+					height="22"
+					width="22"
 					><desc>Chat Two Bubbles Oval Streamline Icon: https://streamlinehq.com</desc><g
 						id="chat-two-bubbles-oval--messages-message-bubble-chat-oval-conversation"
 						><path
@@ -57,8 +78,8 @@
 					fill="none"
 					viewBox="0 0 14 14"
 					id="Bell-Notification--Streamline-Flex"
-					height="17"
-					width="17"
+					height="22"
+					width="22"
 					><desc>Bell Notification Streamline Icon: https://streamlinehq.com</desc><g
 						id="bell-notification--alert-bell-ring-notification-alarm"
 						><path

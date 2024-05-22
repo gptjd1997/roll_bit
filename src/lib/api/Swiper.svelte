@@ -3,10 +3,7 @@
 	import { register } from 'swiper/element/bundle';
 	// register Swiper custom elements
 	register();
-	import Diamonds from '$lib/Images/Diamonds.avif';
-	import Dice from '$lib/Images/Dice.avif';
 	import { onMount } from 'svelte';
-	import { slide } from 'svelte/transition';
 	export let games;
 
 	let swiper;
@@ -17,10 +14,11 @@
 		allowTouchMove: false,
 		spaceBetween: 10,
 		breakpoints: {
+			1600: {
+				slidesPerView: 8
+			},
 			1400: {
 				slidesPerView: 7
-
-				//   spaceBetween: 20
 			},
 			1200: {
 				slidesPerView: 6
@@ -41,7 +39,9 @@
 	};
 
 	let slidesPerView;
+	let activeIndex;
 	let isEnd;
+	let Changed = false;
 
 	onMount(() => {
 		// now we need to assign all parameters to Swiper element
@@ -51,19 +51,30 @@
 		swiperEl.initialize();
 		swiper = swiperEl.swiper;
 		slidesPerView = swiper.params.slidesPerView;
+		activeIndex = swiper.activeIndex;
 
 		swiper.on('slideChange', () => {
+			Changed = true;
+			activeIndex = swiper.activeIndex;
 			isEnd = swiper.isEnd;
-			console.log(isEnd);
+			console.log(swiper);
 		});
+		swiper.on('');
 	});
 </script>
 
 <svelte:window on:resize={() => (slidesPerView = swiper.params.slidesPerView)} />
-<div class="w-auto">
+<div class="mx-3 w-auto md:mx-auto">
 	<div>
 		<div class="mb-2 flex justify-between">
-			<div class="flex items-end">Stake 오리지널</div>
+			<div class="flex items-end gap-2">
+				<svg fill="currentColor" viewBox="0 0 64 64" width="20">
+					<path
+						d="M7.36 42.39c1-12.78 14.728-25.29 17.926-29.976 2.778-4.206 1.719-9.203.83-11.4a.78.78 0 0 1 .893-1h-.004c13.889 2.918 14.588 13.48 14.168 18.206-.42 4.726.42 7.913 3.478 7.224 3.057-.69 2.028-8.443 2.028-8.443s14.039 16.676 8.893 33.073c-2.588 8.574-9.033 12.19-14.449 13.89-.28.14-.56-.14-.56-.55.7-2.638 2.509-4.726 3.058-7.644 1.12-4.796-3.327-9.213-6.624-11.71-2.063-1.538-3.386-3.97-3.386-6.712 0-.127.002-.255.008-.381v.018c0-.28-.42-.42-.55-.28a90.106 90.106 0 0 1-6.652 7.202l-.022.022c-5.136 5.696-7.784 12.09-3.197 19.175.14.28-.14.69-.41.56C11.387 60.596 6.67 51.973 7.36 42.39Z"
+					></path>
+				</svg>
+				<p class=" text-2xl font-semibold leading-[0.9]">Stake 오리지널</p>
+			</div>
 			<div class="mx-2">
 				<button
 					on:click={() => {
@@ -113,38 +124,42 @@
 				>
 			</div>
 		</div>
-		<div>
+		<div class="relative z-50">
 			<swiper-container
+				on:mouseover={() => console.log('SADasd')}
 				bind:this={swiperEl}
 				speed="500"
 				loop="true"
-				class={`flex items-end sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-md xl:max-w-screen-xl ${isEnd ? 'gap-3' : ''} `}
+				class="  w-full shadow-swiper md:max-w-[700px] lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl 3xl:max-w-screen-2xl"
 			>
 				{#each games as game, idx}
 					<swiper-slide
-						class={`${(idx + 1) % slidesPerView == 0 && !isEnd ? 'opacity-30' : ''} ${isEnd ? '' : 'mx-3'} flex flex-col`}
+						class={`${activeIndex + slidesPerView - 1 <= idx && !isEnd ? 'md:animate-swiperOpacity delay-75' : ''} relative flex w-1/2  flex-col overflow-clip `}
 					>
-						<div class="relative">
-							<img
-								loading="lazy"
-								class=" rounded-lg 2xl:max-w-screen-2xl"
-								src={game.image}
-								alt=""
-							/>
+						<div
+							class="z-50 cursor-pointer pt-3
+						transition-transform duration-300 will-change-transform hover:-translate-y-3"
+						>
+							<img loading="lazy" class="w-full rounded-xl" src={game.image} alt="" />
 						</div>
-						<div class="relative h-6 overflow-hidden">
+						<div class="relative h-7 overflow-hidden">
 							<div
-								class="pulse absolute -top-1.5 animate-pulse overflow-hidden text-[25px] font-extrabold leading-9 text-green-500 drop-shadow-greenShadow 3xl:-left-1 3xl:-top-1 3xl:text-4xl"
+								class="pulse absolute animate-pulse overflow-hidden text-5xl font-extrabold leading-9 text-green-500 drop-shadow-greenShadow md:-left-1 md:-top-1 md:text-3xl 3xl:-left-2 3xl:-top-1 3xl:text-4xl"
 							>
 								ㆍ
 							</div>
-							<div class="absolute left-5 top-1 text-xs font-light tracking-wider 3xl:text-base">
+							<div
+								class="absolute left-9 top-1 text-xl font-light tracking-wider md:left-5 md:text-sm 3xl:text-base"
+							>
 								7,625 플레이중
 							</div>
 						</div>
 					</swiper-slide>
 				{/each}
 			</swiper-container>
+			<div
+				class={`${!isEnd ? 'md:animate-swiperBoxShadow' : !Changed ? 'md:animate-swiperBoxShadowReverse' : 'animate-none'} pointer-events-none absolute right-0 top-0 z-50 h-full w-full `}
+			></div>
 		</div>
 	</div>
 </div>
