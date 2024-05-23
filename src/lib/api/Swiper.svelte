@@ -6,7 +6,9 @@
 	import { onMount } from 'svelte';
 	export let games;
 
-	let swiperWrap;
+	let contentsRef;
+	let swiperRef;
+	let width = 'max-w-screen-3xl';
 
 	let swiper;
 	let swiperEl;
@@ -54,6 +56,7 @@
 		swiper = swiperEl.swiper;
 		slidesPerView = swiper.params.slidesPerView;
 		activeIndex = swiper.activeIndex;
+		contentsRef = swiperRef.parentElement.parentElement;
 
 		swiper.on('slideChange', () => {
 			Changed = true;
@@ -67,10 +70,21 @@
 <svelte:window
 	on:resize={() => {
 		slidesPerView = swiper.params.slidesPerView;
-		console.log(swiperWrap.clientWidth);
+		if (contentsRef.clientWidth > 1600) width = 'max-w-screen-2xl';
+		else if (contentsRef.clientWidth <= 1600 && contentsRef.clientWidth > 1400)
+			width = 'max-w-screen-xl';
+		else if (contentsRef.clientWidth <= 1400 && contentsRef.clientWidth > 1200)
+			width = 'max-w-screen-lg';
+		else if (contentsRef.clientWidth <= 1200 && contentsRef.clientWidth > 992)
+			width = 'max-w-screen-md';
+		else if (contentsRef.clientWidth <= 992 && contentsRef.clientWidth > 768)
+			width = 'max-w-screen-sm';
+		else width = 'w-[576px]';
+
+		console.log(width);
 	}}
 />
-<div bind:this={swiperWrap} class="mx-3 w-auto md:mx-auto">
+<div bind:this={swiperRef} class={`mx-3 w-auto md:mx-auto`}>
 	<div>
 		<div class="mb-2 flex justify-between">
 			<div class="flex items-end gap-2">
@@ -135,7 +149,7 @@
 				bind:this={swiperEl}
 				speed="500"
 				loop="true"
-				class=" w-full shadow-swiper md:max-w-[700px] lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl 3xl:max-w-screen-2xl"
+				class={`${width} w-f h-full shadow-swiper`}
 			>
 				{#each games as game, idx}
 					<swiper-slide
