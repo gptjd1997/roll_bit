@@ -19,14 +19,8 @@
 		<!-- Header -->
 		<Header {toggleRightSide} />
 		<!-- Contents -->
-		<div class="mt-16 flex h-full w-full flex-col bg-theme-surface-900">
-			<div class="w-full flex-col gap-7 overflow-auto py-7">
-				<div
-					class="m-auto overflow-visible md:w-[710px] lg:w-[800px] xl:w-[1000px] 2xl:w-[1200px] 3xl:w-[1400px]"
-				>
-					<slot></slot>
-				</div>
-			</div>
+		<div class="flex h-full w-full flex-col bg-theme-surface-900 pt-[80px]">
+			<slot></slot>
 		</div>
 	</div>
 	<RightSide {openRightSide} toggleSide={() => toggleSide(openRightSide)} />
