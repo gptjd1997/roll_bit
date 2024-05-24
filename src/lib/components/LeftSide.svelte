@@ -1,7 +1,6 @@
 <script>
 	import card from '$lib/Images/Card.png';
 	import dice from '$lib/Images/Dice.png';
-	import { slide } from 'svelte/transition';
 	export let openLeftSide;
 	export let toggleLeftSide;
 </script>

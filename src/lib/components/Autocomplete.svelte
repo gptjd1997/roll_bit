@@ -48,7 +48,7 @@
 
 <div class="autocomplete relative z-[60]">
 	<input
-		class="w-full rounded-full border border-theme-surface-700 bg-theme-surface-800 p-2 px-11 text-lg drop-shadow-sm"
+		class="w-full border border-theme-surface-700 bg-theme-surface-900 p-2 px-11 text-lg drop-shadow-sm"
 		type="text"
 		bind:value={input}
 		on:focus={handleFocus}

@@ -15,11 +15,11 @@ export default {
 				},
 				swiperBoxShadow: {
 					'0%': { boxShadow: 'none;', opacity: 0 },
-					'100%': { boxShadow: 'inset -200px 0px 50px -130px #242424', opacity: 1 }
+					'100%': { boxShadow: 'inset -200px 0px 50px -130px #2c2d2d', opacity: 1 }
 				},
 				swiperBoxShadowReverse: {
 					'100%': { boxShadow: 'none;', opacity: 0 },
-					'0%': { boxShadow: 'inset -200px 0px 50px -130px #242424', opacity: 1 }
+					'0%': { boxShadow: 'inset -200px 0px 50px -130px #2c2d2d', opacity: 1 }
 				}
 			},
 			colors: {
@@ -125,6 +125,9 @@ export default {
 			},
 			dropShadow: {
 				greenShadow: '0px 0px 3px rgb(34 197 94)'
+			},
+			maxWidth: {
+				contents: '1400px'
 			}
 		}
 	},

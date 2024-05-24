@@ -8,7 +8,7 @@
 
 	let contentsRef;
 	let swiperRef;
-	let width = 'max-w-screen-3xl';
+	let width;
 
 	let swiper;
 	let swiperEl;
@@ -58,6 +58,7 @@
 		activeIndex = swiper.activeIndex;
 		contentsRef = swiperRef.parentElement.parentElement;
 
+		widthHandler();
 		swiper.on('slideChange', () => {
 			Changed = true;
 			activeIndex = swiper.activeIndex;
@@ -65,26 +66,31 @@
 		});
 		swiper.on('');
 	});
+
+	const widthHandler = () => {
+		if (contentsRef.clientWidth > 1600) width = 'view-3xl';
+		else if (contentsRef.clientWidth <= 1600 && contentsRef.clientWidth > 1400) {
+			width = 'view-2xl';
+		} else if (contentsRef.clientWidth <= 1400 && contentsRef.clientWidth > 1200) {
+			width = 'view-xl';
+		} else if (contentsRef.clientWidth <= 1200 && contentsRef.clientWidth > 992) {
+			width = 'view-lg';
+		} else if (contentsRef.clientWidth <= 992 && contentsRef.clientWidth > 768) {
+			width = 'view-md';
+		} else if (contentsRef.clientWidth <= 768) {
+			width = 'view-sm';
+		}
+	};
 </script>
 
 <svelte:window
 	on:resize={() => {
 		slidesPerView = swiper.params.slidesPerView;
-		if (contentsRef.clientWidth > 1600) width = 'max-w-screen-2xl';
-		else if (contentsRef.clientWidth <= 1600 && contentsRef.clientWidth > 1400)
-			width = 'max-w-screen-xl';
-		else if (contentsRef.clientWidth <= 1400 && contentsRef.clientWidth > 1200)
-			width = 'max-w-screen-lg';
-		else if (contentsRef.clientWidth <= 1200 && contentsRef.clientWidth > 992)
-			width = 'max-w-screen-md';
-		else if (contentsRef.clientWidth <= 992 && contentsRef.clientWidth > 768)
-			width = 'max-w-screen-sm';
-		else width = 'w-[576px]';
-
 		console.log(width);
+		widthHandler();
 	}}
 />
-<div bind:this={swiperRef} class={`mx-3 w-auto md:mx-auto`}>
+<div bind:this={swiperRef} class={`mx-3 w-auto`}>
 	<div>
 		<div class="mb-2 flex justify-between">
 			<div class="flex items-end gap-2">
@@ -145,40 +151,52 @@
 			</div>
 		</div>
 		<div class="relative z-50">
-			<swiper-container
-				bind:this={swiperEl}
-				speed="500"
-				loop="true"
-				class={`${width} w-f h-full shadow-swiper`}
-			>
+			<swiper-container bind:this={swiperEl} speed="500" loop="true">
 				{#each games as game, idx}
 					<swiper-slide
-						class={`${activeIndex + slidesPerView - 1 <= idx && !isEnd ? 'delay-75 md:animate-swiperOpacity' : ''} relative flex w-1/2  flex-col  `}
+						class={`${activeIndex + slidesPerView - 1 <= idx && !isEnd ? `delay-75 ` : ''} relative flex w-1/2  flex-col  `}
 					>
 						<div
 							class="z-50 cursor-pointer pt-3
 						transition-transform duration-300 hover:-translate-y-3"
 						>
-							<img loading="lazy" class="w-full rounded-xl" src={game.image} alt="" />
+							<img loading="lazy" class="w-full rounded-xl" src={game.thumbnail} alt="" />
 						</div>
 						<div class="relative h-7 overflow-hidden">
 							<div
-								class="pulse absolute animate-pulse overflow-hidden text-5xl font-extrabold leading-9 text-green-500 drop-shadow-greenShadow md:-left-1 md:-top-1 md:text-3xl 3xl:-left-2 3xl:-top-1 3xl:text-4xl"
+								class={`pulse absolute animate-pulse overflow-hidden text-5xl font-extrabold leading-9 text-green-500 drop-shadow-greenShadow  `}
 							>
 								ㆍ
 							</div>
-							<div
-								class="absolute left-9 top-1 text-xl font-light tracking-wider md:left-5 md:text-sm 3xl:text-base"
-							>
-								7,625 플레이중
-							</div>
+							<div class={`absolute left-8 top-1.5 font-light tracking-wider `}>7,625 플레이중</div>
 						</div>
 					</swiper-slide>
 				{/each}
 			</swiper-container>
 			<div
-				class={`${!isEnd ? 'md:animate-swiperBoxShadow' : !Changed ? 'md:animate-swiperBoxShadowReverse' : 'animate-none'} pointer-events-none absolute right-0 top-0 z-50 h-full w-full `}
+				class={`${!isEnd ? 'lg:animate-swiperBoxShadow' : !Changed ? 'lg:animate-swiperBoxShadowReverse' : 'animate-none'} pointer-events-none absolute right-0 top-0 z-50 h-full w-full `}
 			></div>
 		</div>
 	</div>
 </div>
+
+<style>
+	.view-3xl {
+		width: 1600px;
+	}
+	.view-2xl {
+		width: 1400px;
+	}
+	.view-xl {
+		width: 1200px;
+	}
+	.view-lg {
+		width: 992px;
+	}
+	.view-md {
+		width: 768px;
+	}
+	.view-sm {
+		width: 576px;
+	}
+</style>

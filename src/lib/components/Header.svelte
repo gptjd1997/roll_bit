@@ -1,10 +1,13 @@
 <script>
 	import whiteLogo from '$lib/Images/whiteLogo.png';
+	export let openRightSide;
 	export let toggleRightSide;
 </script>
 
-<div class="absolute z-[61] flex h-[64px] w-full bg-theme-surface-800 px-20 shadow-default">
-	<div class="grid w-full grid-cols-3">
+<div
+	class="absolute z-[61] flex h-[64px] w-full justify-center bg-theme-surface-800 px-3 shadow-default"
+>
+	<div class=" grid w-full grid-cols-3 lg:w-9/12">
 		<div class="flex flex-row items-center justify-start gap-3">
 			<img width="100" src={whiteLogo} />
 		</div>

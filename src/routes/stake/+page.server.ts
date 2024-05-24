@@ -1,6 +1,6 @@
 export async function load({ fetch }) {
 	try {
-		const res = await fetch('/api/get_games');
+		const res = await fetch('/api/games/get_games');
 		if (res.ok) {
 			const games = await res.json();
 			return {
