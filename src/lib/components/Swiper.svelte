@@ -86,10 +86,21 @@
 <svelte:window
 	on:resize={() => {
 		slidesPerView = swiper.params.slidesPerView;
-		widthHandler();
+		if (contentsRef.clientWidth > 1600) width = 'max-w-screen-2xl';
+		else if (contentsRef.clientWidth <= 1600 && contentsRef.clientWidth > 1400)
+			width = 'max-w-screen-xl';
+		else if (contentsRef.clientWidth <= 1400 && contentsRef.clientWidth > 1200)
+			width = 'max-w-screen-lg';
+		else if (contentsRef.clientWidth <= 1200 && contentsRef.clientWidth > 992)
+			width = 'max-w-screen-md';
+		else if (contentsRef.clientWidth <= 992 && contentsRef.clientWidth > 768)
+			width = 'max-w-screen-sm';
+		else width = 'w-[576px]';
+
+		console.log(width);
 	}}
 />
-<div bind:this={swiperRef} class={`mx-3 w-auto`}>
+<div bind:this={swiperRef} class={`mx-3 w-auto md:mx-auto`}>
 	<div>
 		<div class="mb-2 flex justify-between">
 			<div class="flex items-end gap-2">
@@ -150,7 +161,12 @@
 			</div>
 		</div>
 		<div class="relative z-50">
-			<swiper-container bind:this={swiperEl} speed="500" loop="true">
+			<swiper-container
+				bind:this={swiperEl}
+				speed="500"
+				loop="true"
+				class={`${width} w-f h-full shadow-swiper`}
+			>
 				{#each games as game, idx}
 					<swiper-slide
 						class={`${activeIndex + slidesPerView - 1 <= idx && !isEnd ? `delay-75 ` : ''} relative flex w-1/2  flex-col  `}
