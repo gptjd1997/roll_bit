@@ -38,7 +38,7 @@ export default {
 				'theme-secondary-100': '#d0daf3',
 				'theme-secondary-200': '#c5d1f0',
 				'theme-secondary-300': '#a1b5e7',
-				'theme-secondary-400': '#5b7ed5',
+				'theme-secondary-400': 'rgb(102, 153, 255)',
 				'theme-secondary-500': '#1547c3',
 				'theme-secondary-600': '#1340b0',
 				'theme-secondary-700': '#103592',

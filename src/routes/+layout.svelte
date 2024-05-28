@@ -3,12 +3,41 @@
 	import '../app.css';
 	import LeftSide from '$lib/components/LeftSide.svelte';
 	import RightSide from '$lib/components/RightSide.svelte';
+	import { onMount } from 'svelte';
+	import { setUser, clearUser, user } from '../stores/user';
+
+	import { goto } from '$app/navigation';
 
 	let openLeftSide = false;
 	let openRightSide = true;
 
+	let userValue;
+
 	const toggleLeftSide = () => (openLeftSide = !openLeftSide);
 	const toggleRightSide = () => (openRightSide = !openRightSide);
+
+	onMount(async () => {
+		const jwtCookie = document.cookie.split(' ').find((c) => c.trim().startsWith('jwt='));
+		let jwt;
+
+		if (jwtCookie) {
+			jwt = jwtCookie.split('=')[1];
+		}
+		if (jwt) {
+			const res = await fetch(`/api/users/me`, {
+				headers: {
+					Authorization: `Bearer ${jwt}`
+				}
+			});
+
+			if (res.ok) {
+				const { user } = await res.json();
+				setUser(user);
+			}
+		}
+
+		return () => {};
+	});
 
 	$: layoutClass = openLeftSide ? 'openWrap' : 'closeWrap';
 </script>

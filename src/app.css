@@ -10,6 +10,7 @@
 	font-family: 'pretendard variable';
 	font-size: 14px;
 	will-change: transform;
+	font-weight: 200;
 }
 div {
 	touch-action: manipulation;

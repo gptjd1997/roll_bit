@@ -86,7 +86,6 @@
 <svelte:window
 	on:resize={() => {
 		slidesPerView = swiper.params.slidesPerView;
-		console.log(width);
 		widthHandler();
 	}}
 />
